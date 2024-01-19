@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <script>
+        function validateForm() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Invalid email address');
+                return false;
+            }
+
+            // Password validation (minimum 8 characters, at least one uppercase letter, one lowercase letter, and one number)
+            const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]{8,}$/;
+            if (!passwordRegex.test(password)) {
+                alert('Invalid password. It must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one number.');
+                return false;
+            }
+
+            // Confirm password validation
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return false;
+            }else alert('Thank you!');
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+<form onsubmit="return validateForm()">
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" required><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <label for="confirmPassword">Confirm Password:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required><br>
+
+    <input type="submit" value="Register">
+</form>
+
+</body>
+</html>

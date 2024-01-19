@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree Trivia Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+
+        #quiz-container {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        #question {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        #options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+            .option:hover {
+                background-color: #f0f0f0;
+            }
+
+        #result {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h1>Tree Trivia Game</h1>
+        <div id="question"></div>
+        <div id="options"></div>
+        <div id="result"></div>
+        <button id="button" onclick="nextQuestion()">Next Question</button>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "I am the tallest tree in the world. What tree am I?",
+                options: ["Maple", "Sequoia", "Elm", "Eucalyptus"],
+                correctAnswer: "Sequoia"
+            },
+            {
+                question: "Which tree is known as the 'Tree of Life'?",
+                options: ["Oak", "Baobab", "Maple", "Pine"],
+                correctAnswer: "Baobab"
+            },
+            {
+                question: "What is the world's oldest tree species?",
+                options: ["Redwood", "Bristlecone Pine", "Sequoia", "Oak"],
+                correctAnswer: "Bristlecone Pine"
+            },
+            {
+                question: "Which tree produces acorns?",
+                options: ["Pine", "Cedar", "Birch", "Oak"],
+                correctAnswer: "Oak"
+            },
+            {
+                question: "What is the age of the oldest living tree on earth?",
+                options: ["4,500 years old", "132 years old", "690 years old", "5602 years old"],
+                correctAnswer: "5602 years old"
+            },
+            {
+                question: "Which season does the tree’s leaves turn from green to red, orange, or yellow?",
+                options: ["Winter", "Spring", "Summer", "Fall"],
+                correctAnswer: "Fall"
+            },
+            {
+                question: "What type of gas do trees and other plants produce that is helpful to humans?",
+                options: ["Oxygen", "Hydrogen", "Helium", "Nitrogen"],
+                correctAnswer: "Oxygen"
+            },
+            {
+                question: "I am a type of tree that can grow in salty water, you can find me along rivers and shores. What tree am I?",
+                options: ["Coconut", "Mango", "Mangrove", "Palm"],
+                correctAnswer: "Mangrove"
+            },
+            // Add more questions here...
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const currentQuestion = questions[currentQuestionIndex];
+            document.getElementById("question").textContent = currentQuestion.question;
+
+            const optionsContainer = document.getElementById("options");
+            optionsContainer.innerHTML = "";
+
+            currentQuestion.options.forEach((option, index) => {
+                const optionElement = document.createElement("div");
+                optionElement.classList.add("option");
+                optionElement.textContent = option;
+                optionElement.onclick = () => checkAnswer(option, currentQuestion.correctAnswer);
+                optionsContainer.appendChild(optionElement);
+            });
+        }
+
+        function checkAnswer(selectedOption, correctAnswer) {
+            if (selectedOption === correctAnswer) {
+                score++;
+            }
+
+            const resultContainer = document.getElementById("result");
+            resultContainer.textContent = `Your score: ${score}/${questions.length}`;
+
+            disableOptions();
+        }
+
+        function disableOptions() {
+            const options = document.querySelectorAll(".option");
+            options.forEach(option => option.onclick = null);
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+                document.getElementById("result").textContent = "";
+            } else {
+                document.getElementById("question").textContent = "Trivia Game Over";
+                document.getElementById("options").innerHTML = "";
+                document.getElementById("result").textContent = `Your final score: ${score}/${questions.length}`;
+                document.getElementById("button").remove();
+
+            }
+        }
+
+        // Function to shuffle questions array
+        function shuffleQuestions() {
+            for (let i = questions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [questions[i], questions[j]] = [questions[j], questions[i]];
+            }
+        }
+
+        // Initial load with shuffled questions
+        shuffleQuestions();
+        loadQuestion();
+    </script>
+
+</body>
+</html>

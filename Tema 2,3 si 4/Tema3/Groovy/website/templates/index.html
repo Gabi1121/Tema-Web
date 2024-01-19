@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Memory Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Audio Memory Game</h1>
+    <button id="startButton">Start Game</button>
+    <div id="gameBoard" class="hidden">
+        <button class="audio-button red" id="redButton" data-sound="red_sound.wav"></button>
+        <button class="audio-button yellow" id="yellowButton" data-sound="yellow_sound.wav"></button>
+        <button class="audio-button green" id="greenButton" data-sound="green_sound.wav"></button>
+        <button class="audio-button blue" id="blueButton" data-sound="blue_sound.wav"></button>
+    </div>
+    <script src="{{ url_for('static', filename='game.js') }}"></script>
+</body>
+</html>
